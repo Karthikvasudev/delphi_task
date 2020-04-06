@@ -6,6 +6,7 @@ parameters:
   clientsecret: ''
   tenantid: ''
   acrlogin_username: ''
+  registryName: ''
 
 variables:
   helmVersion: 3.1.2
