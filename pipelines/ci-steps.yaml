@@ -65,8 +65,13 @@ steps:
   failOnStderr: true
   displayName: 'helm package'
 - bash: |
+    az login \
+        --service-principal \
+         -u $clientid \
+         -p $clientsecret \
+         --tenant $tenantid
     acrlogin_password=$(az keyvault secret show -n Password --vault-name delphivault | jq -r '.value')
-    chartPackage=$(ls $projectName-*.tgz)
+    chartPackage=$(ls /home/vsts/work/1/s/delphi-*.tgz)
     az acr helm push \
         -n $registryName \
         -u $acrlogin_username \
@@ -77,9 +82,9 @@ steps:
     registryName: $(registryName)
     projectName: $(projectName)
     acrlogin_username: $(acrlogin_username)
-
-
-
+    clientid: $(clientid)
+    clientsecret: $(clientsecret)
+    tenantid: $(tenantid)
   failOnStderr: true
   name: helmPush
   condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/master'))

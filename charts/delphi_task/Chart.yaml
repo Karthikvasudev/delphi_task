@@ -1,4 +1,4 @@
 apiVersion: v1
 description: Delphi's task on simple spring boot app, which will be deployed through helm v3 on Azure K8s cluster. 
 Name: delphi
-Version: v0.3.0
+Version: $(Build.BuildNumber)
