@@ -6,7 +6,7 @@ trigger:
   paths:
     include: 
     - delphi_task/
-    - pipelines/ci-steps.yml
+    - ci-steps.yaml
     
 pr: none
 
@@ -14,11 +14,11 @@ pool:
   vmImage: 'ubuntu-16.04'
 
 variables:
-- template: pipelines/ci-vars.yml
+- template: ci-vars.yaml
   parameters:
       projectName: delphi_task
       registryName: delphiacr
       imageName: delphi_springboot
 
 steps:
-- template: pipelines/ci-steps.yml
+- template: ci-steps.yaml
