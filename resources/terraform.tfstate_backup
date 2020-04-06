@@ -1,0 +1,380 @@
+{
+  "version": 4,
+  "terraform_version": "0.12.24",
+  "serial": 39,
+  "lineage": "6eaec0cb-52e1-6a7a-5d74-912553ffaa67",
+  "outputs": {
+    "admin_password": {
+      "value": "KLPRe/O45METZ34DL0NOAYTNfVcECDCt",
+      "type": "string"
+    },
+    "admin_username": {
+      "value": "Delphiregistry",
+      "type": "string"
+    },
+    "login_server": {
+      "value": "delphiregistry.azurecr.io",
+      "type": "string"
+    },
+    "vault_uri": {
+      "value": "https://delphi.vault.azure.net/",
+      "type": "string"
+    }
+  },
+  "resources": [
+    {
+      "mode": "data",
+      "type": "azurerm_client_config",
+      "name": "current",
+      "provider": "provider.azurerm",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "client_id": "04b07795-8ddb-461a-bbee-02f9e1bf7b46",
+            "id": "2020-04-05 09:41:56.244114 +0000 UTC",
+            "object_id": "1504edbe-e595-4d27-ac59-962c5ed1b75d",
+            "subscription_id": "e6c064af-4de4-4ebc-a459-e193bfe6e9bf",
+            "tenant_id": "93bb4c86-1f5b-48e6-b8c1-b46d17b15c0a",
+            "timeouts": null
+          }
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "azurerm_container_registry",
+      "name": "delphi_acr",
+      "provider": "provider.azurerm",
+      "instances": [
+        {
+          "schema_version": 2,
+          "attributes": {
+            "admin_enabled": true,
+            "admin_password": "KLPRe/O45METZ34DL0NOAYTNfVcECDCt",
+            "admin_username": "Delphiregistry",
+            "georeplication_locations": null,
+            "id": "/subscriptions/e6c064af-4de4-4ebc-a459-e193bfe6e9bf/resourceGroups/testResourceGroup/providers/Microsoft.ContainerRegistry/registries/Delphiregistry",
+            "location": "eastus",
+            "login_server": "delphiregistry.azurecr.io",
+            "name": "Delphiregistry",
+            "network_rule_set": [],
+            "resource_group_name": "testResourceGroup",
+            "sku": "Basic",
+            "storage_account_id": null,
+            "tags": {},
+            "timeouts": null
+          },
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoxODAwMDAwMDAwMDAwLCJkZWxldGUiOjE4MDAwMDAwMDAwMDAsInJlYWQiOjMwMDAwMDAwMDAwMCwidXBkYXRlIjoxODAwMDAwMDAwMDAwfSwic2NoZW1hX3ZlcnNpb24iOiIyIn0=",
+          "dependencies": [
+            "azurerm_resource_group.rg"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "azurerm_key_vault",
+      "name": "delphi_vault",
+      "provider": "provider.azurerm",
+      "instances": [
+        {
+          "schema_version": 1,
+          "attributes": {
+            "access_policy": [
+              {
+                "application_id": "",
+                "certificate_permissions": [],
+                "key_permissions": [
+                  "Get"
+                ],
+                "object_id": "1504edbe-e595-4d27-ac59-962c5ed1b75d",
+                "secret_permissions": [
+                  "Get",
+                  "List"
+                ],
+                "storage_permissions": [
+                  "get"
+                ],
+                "tenant_id": "93bb4c86-1f5b-48e6-b8c1-b46d17b15c0a"
+              }
+            ],
+            "enabled_for_deployment": false,
+            "enabled_for_disk_encryption": true,
+            "enabled_for_template_deployment": false,
+            "id": "/subscriptions/e6c064af-4de4-4ebc-a459-e193bfe6e9bf/resourceGroups/testResourceGroup/providers/Microsoft.KeyVault/vaults/delphi",
+            "location": "eastus",
+            "name": "delphi",
+            "network_acls": [
+              {
+                "bypass": "AzureServices",
+                "default_action": "Deny",
+                "ip_rules": [],
+                "virtual_network_subnet_ids": []
+              }
+            ],
+            "purge_protection_enabled": false,
+            "resource_group_name": "testResourceGroup",
+            "sku_name": "standard",
+            "soft_delete_enabled": true,
+            "tags": {
+              "environment": "Task"
+            },
+            "tenant_id": "93bb4c86-1f5b-48e6-b8c1-b46d17b15c0a",
+            "timeouts": null,
+            "vault_uri": "https://delphi.vault.azure.net/"
+          },
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoxODAwMDAwMDAwMDAwLCJkZWxldGUiOjE4MDAwMDAwMDAwMDAsInJlYWQiOjMwMDAwMDAwMDAwMCwidXBkYXRlIjoxODAwMDAwMDAwMDAwfSwic2NoZW1hX3ZlcnNpb24iOiIxIn0=",
+          "dependencies": [
+            "azurerm_resource_group.rg"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "azurerm_kubernetes_cluster",
+      "name": "delphi_k8s",
+      "provider": "provider.azurerm",
+      "instances": []
+    },
+    {
+      "mode": "managed",
+      "type": "azurerm_log_analytics_solution",
+      "name": "deplhi_sol",
+      "provider": "provider.azurerm",
+      "instances": []
+    },
+    {
+      "mode": "managed",
+      "type": "azurerm_nat_gateway",
+      "name": "delphi_nat",
+      "provider": "provider.azurerm",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "id": "/subscriptions/e6c064af-4de4-4ebc-a459-e193bfe6e9bf/resourceGroups/testResourceGroup/providers/Microsoft.Network/natGateways/deplhi-nat",
+            "idle_timeout_in_minutes": 10,
+            "location": "eastus",
+            "name": "deplhi-nat",
+            "public_ip_address_ids": [
+              "/subscriptions/e6c064af-4de4-4ebc-a459-e193bfe6e9bf/resourceGroups/testResourceGroup/providers/Microsoft.Network/publicIPAddresses/nat-gateway-publicIP"
+            ],
+            "public_ip_prefix_ids": [
+              "/subscriptions/e6c064af-4de4-4ebc-a459-e193bfe6e9bf/resourceGroups/testResourceGroup/providers/Microsoft.Network/publicIPPrefixes/nat-gateway-publicIPPrefix"
+            ],
+            "resource_group_name": "testResourceGroup",
+            "resource_guid": "980d15cc-b90b-4d68-85f6-c349d0c57d28",
+            "sku_name": "Standard",
+            "tags": {},
+            "timeouts": null,
+            "zones": [
+              "1"
+            ]
+          },
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjozNjAwMDAwMDAwMDAwLCJkZWxldGUiOjM2MDAwMDAwMDAwMDAsInJlYWQiOjMwMDAwMDAwMDAwMCwidXBkYXRlIjozNjAwMDAwMDAwMDAwfX0=",
+          "dependencies": [
+            "azurerm_public_ip.EIP",
+            "azurerm_public_ip_prefix.EIP_prefix",
+            "azurerm_resource_group.rg"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "azurerm_public_ip",
+      "name": "EIP",
+      "provider": "provider.azurerm",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "allocation_method": "Static",
+            "domain_name_label": null,
+            "fqdn": null,
+            "id": "/subscriptions/e6c064af-4de4-4ebc-a459-e193bfe6e9bf/resourceGroups/testResourceGroup/providers/Microsoft.Network/publicIPAddresses/nat-gateway-publicIP",
+            "idle_timeout_in_minutes": 4,
+            "ip_address": "52.188.80.167",
+            "ip_version": "IPv4",
+            "location": "eastus",
+            "name": "nat-gateway-publicIP",
+            "public_ip_prefix_id": null,
+            "resource_group_name": "testResourceGroup",
+            "reverse_fqdn": null,
+            "sku": "Standard",
+            "tags": {},
+            "timeouts": null,
+            "zones": [
+              "1"
+            ]
+          },
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoxODAwMDAwMDAwMDAwLCJkZWxldGUiOjE4MDAwMDAwMDAwMDAsInJlYWQiOjMwMDAwMDAwMDAwMCwidXBkYXRlIjoxODAwMDAwMDAwMDAwfX0=",
+          "dependencies": [
+            "azurerm_resource_group.rg"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "azurerm_public_ip_prefix",
+      "name": "EIP_prefix",
+      "provider": "provider.azurerm",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "id": "/subscriptions/e6c064af-4de4-4ebc-a459-e193bfe6e9bf/resourceGroups/testResourceGroup/providers/Microsoft.Network/publicIPPrefixes/nat-gateway-publicIPPrefix",
+            "ip_prefix": "52.188.80.240/30",
+            "location": "eastus",
+            "name": "nat-gateway-publicIPPrefix",
+            "prefix_length": 30,
+            "resource_group_name": "testResourceGroup",
+            "sku": "Standard",
+            "tags": {},
+            "timeouts": null,
+            "zones": [
+              "1"
+            ]
+          },
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoxODAwMDAwMDAwMDAwLCJkZWxldGUiOjE4MDAwMDAwMDAwMDAsInJlYWQiOjMwMDAwMDAwMDAwMCwidXBkYXRlIjoxODAwMDAwMDAwMDAwfX0=",
+          "dependencies": [
+            "azurerm_resource_group.rg"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "azurerm_resource_group",
+      "name": "rg",
+      "provider": "provider.azurerm",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "id": "/subscriptions/e6c064af-4de4-4ebc-a459-e193bfe6e9bf/resourceGroups/testResourceGroup",
+            "location": "eastus",
+            "name": "testResourceGroup",
+            "tags": {},
+            "timeouts": null
+          },
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjo1NDAwMDAwMDAwMDAwLCJkZWxldGUiOjU0MDAwMDAwMDAwMDAsInJlYWQiOjMwMDAwMDAwMDAwMCwidXBkYXRlIjo1NDAwMDAwMDAwMDAwfX0="
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "azurerm_subnet",
+      "name": "subnet_pub",
+      "provider": "provider.azurerm",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "address_prefix": "10.0.2.0/24",
+            "delegation": [],
+            "enforce_private_link_endpoint_network_policies": false,
+            "enforce_private_link_service_network_policies": false,
+            "id": "/subscriptions/e6c064af-4de4-4ebc-a459-e193bfe6e9bf/resourceGroups/testResourceGroup/providers/Microsoft.Network/virtualNetworks/delphi_vnet/subnets/delphi-subnet",
+            "name": "delphi-subnet",
+            "resource_group_name": "testResourceGroup",
+            "service_endpoints": [],
+            "timeouts": null,
+            "virtual_network_name": "delphi_vnet"
+          },
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoxODAwMDAwMDAwMDAwLCJkZWxldGUiOjE4MDAwMDAwMDAwMDAsInJlYWQiOjMwMDAwMDAwMDAwMCwidXBkYXRlIjoxODAwMDAwMDAwMDAwfX0=",
+          "dependencies": [
+            "azurerm_resource_group.rg",
+            "azurerm_virtual_network.delphi_task_vnet"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "azurerm_subnet_nat_gateway_association",
+      "name": "nat_associate",
+      "provider": "provider.azurerm",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "id": "/subscriptions/e6c064af-4de4-4ebc-a459-e193bfe6e9bf/resourceGroups/testResourceGroup/providers/Microsoft.Network/virtualNetworks/delphi_vnet/subnets/delphi-subnet",
+            "nat_gateway_id": "/subscriptions/e6c064af-4de4-4ebc-a459-e193bfe6e9bf/resourceGroups/testResourceGroup/providers/Microsoft.Network/natGateways/deplhi-nat",
+            "subnet_id": "/subscriptions/e6c064af-4de4-4ebc-a459-e193bfe6e9bf/resourceGroups/testResourceGroup/providers/Microsoft.Network/virtualNetworks/delphi_vnet/subnets/delphi-subnet",
+            "timeouts": null
+          },
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoxODAwMDAwMDAwMDAwLCJkZWxldGUiOjE4MDAwMDAwMDAwMDAsInJlYWQiOjMwMDAwMDAwMDAwMCwidXBkYXRlIjoxODAwMDAwMDAwMDAwfX0=",
+          "dependencies": [
+            "azurerm_nat_gateway.delphi_nat",
+            "azurerm_resource_group.rg",
+            "azurerm_subnet.subnet_pub",
+            "azurerm_virtual_network.delphi_task_vnet"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "azurerm_virtual_network",
+      "name": "delphi_task_vnet",
+      "provider": "provider.azurerm",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "address_space": [
+              "10.0.0.0/16"
+            ],
+            "ddos_protection_plan": [],
+            "dns_servers": [],
+            "id": "/subscriptions/e6c064af-4de4-4ebc-a459-e193bfe6e9bf/resourceGroups/testResourceGroup/providers/Microsoft.Network/virtualNetworks/delphi_vnet",
+            "location": "eastus",
+            "name": "delphi_vnet",
+            "resource_group_name": "testResourceGroup",
+            "subnet": [
+              {
+                "address_prefix": "10.0.2.0/24",
+                "id": "/subscriptions/e6c064af-4de4-4ebc-a459-e193bfe6e9bf/resourceGroups/testResourceGroup/providers/Microsoft.Network/virtualNetworks/delphi_vnet/subnets/delphi-subnet",
+                "name": "delphi-subnet",
+                "security_group": ""
+              }
+            ],
+            "tags": {},
+            "timeouts": null
+          },
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoxODAwMDAwMDAwMDAwLCJkZWxldGUiOjE4MDAwMDAwMDAwMDAsInJlYWQiOjMwMDAwMDAwMDAwMCwidXBkYXRlIjoxODAwMDAwMDAwMDAwfX0=",
+          "dependencies": [
+            "azurerm_resource_group.rg"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "random_id",
+      "name": "log_analytics_workspace_name_suffix",
+      "provider": "provider.random",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "b64": "7ySXmQ_tWCY",
+            "b64_std": "7ySXmQ/tWCY=",
+            "b64_url": "7ySXmQ_tWCY",
+            "byte_length": 8,
+            "dec": "17232064757879363622",
+            "hex": "ef2497990fed5826",
+            "id": "7ySXmQ_tWCY",
+            "keepers": null,
+            "prefix": null
+          },
+          "private": "bnVsbA=="
+        }
+      ]
+    }
+  ]
+}

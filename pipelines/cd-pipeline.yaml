@@ -1,0 +1,37 @@
+trigger: none
+pr: none
+
+variables:
+- template: pipelines/cd-vars.yml
+  parameters:
+      projectName: delphi_task
+      registryName: delphiacr
+      aks: delphi_k8s
+      rg: DelphiRG
+
+resources: 
+  pipelines:
+  - pipeline: ci-pipeline
+    source: delphi_task-ci
+    trigger:
+      enabled: true
+      branches:
+        include:
+          - master
+
+stages:
+- stage: development
+  displayName: development
+  jobs:
+  - deployment: development
+    variables:
+      k8sNamespace: 'delphi_k8s'
+    displayName: deploy helm chart into AKS
+    pool:
+      vmImage: 'ubuntu-16.04'
+    environment: development-$(projectName)
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - template: pipelines/cd-steps.yml

@@ -1,0 +1,24 @@
+trigger:
+  batch: true
+  branches:
+    include: 
+    - '*'
+  paths:
+    include: 
+    - delphi_task/
+    - pipelines/ci-steps.yml
+    
+pr: none
+
+pool:
+  vmImage: 'ubuntu-16.04'
+
+variables:
+- template: pipelines/ci-vars.yml
+  parameters:
+      projectName: delphi_task
+      registryName: delphiacr
+      imageName: delphi_springboot
+
+steps:
+- template: pipelines/ci-steps.yml

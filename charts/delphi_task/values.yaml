@@ -1,0 +1,14 @@
+#Retrieving K8s cluster FQDN from key_vault
+secrets:
+  - id: FQDN
+    keyvault: https://delphivault.vault.azure.net/secrets/k8sfqdn
+replicaCount: 1
+image:
+  useImagePullSecrets: false
+  pullPolicy: Always
+service:
+  internalPort: 8080
+  externalPort: 8080
+ingress:
+  enabled: true
+  basedomain: '{{.Secrets.FQDN}}'
