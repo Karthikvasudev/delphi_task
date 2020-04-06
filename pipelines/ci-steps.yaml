@@ -1,9 +1,9 @@
 #Using Azure Key_vault store for ACR secrets 
 steps:
 - bash: |
-    echo $(registryServerName)
+    echo $registryServerName
     docker build \
-        -t $(registryServerName)/$(imageName):$(imageTag) \
+        -t $(registryServerName/$imageName:$imageTag \
         .
   failOnStderr: true
   displayName: 'docker build'
@@ -11,9 +11,9 @@ steps:
 - bash: |
     az login \
         --service-principal \
-        -u $(clientid) \
-        -p $(clientsecret) \
-        --tenant $(tenantid)
+        -u $clientid \
+        -p $clientsecret \
+        --tenant $tenantid
   failOnStderr: true
   displayName: 'az login to retrieve secrets from Key_vault'
 
@@ -32,7 +32,7 @@ steps:
   condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/master'))
   displayName: 'docker login'
 - bash: |
-    docker push $(registryServerName)/$(imageName):$(imageTag)
+    docker push $registryServerName/$imageName:$imageTag
   failOnStderr: true
   condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/master'))
   displayName: 'docker push'
@@ -52,9 +52,9 @@ steps:
     cd $(projectName)
     chartPackage=$(ls $(projectName)-*.tgz)
     az acr helm push \
-        -n $(registryName) \
-        -u $(acrlogin_username) \
-        -p $(acrlogin_password) \
+        -n $registryName \
+        -u $acrlogin_username \
+        -p $acrlogin_password \
         $chartPackage
     echo $(jq -n --arg version "$(helmChartVersion)" '{helmChartVersion: $version}') > $(build.artifactStagingDirectory)/variables.json
   failOnStderr: true
