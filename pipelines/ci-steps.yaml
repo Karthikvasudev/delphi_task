@@ -40,7 +40,7 @@ steps:
 
 - bash: |
     echo $registryServerName
-    docker push $registryServerName/delphi/$imageName:$iamageTag
+    docker push $registryServerName/delphi/$imageName
   env:
     registryServerName: $(registryServerName)
     imageName: $(imageName)
