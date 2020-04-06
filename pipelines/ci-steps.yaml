@@ -55,11 +55,11 @@ steps:
     helmVersionToInstall: $(helmVersion)
 - bash: |
     helm package \
-        --version $(Build.BuildNumber) \
+        --version $(helmChartVersion) \
         --app-version $imageTag \
         charts/$projectName
   env:
-    imageTag: $(imageTag)
+    imageTag: $(Build.BuildNumber)
     projectName: $(projectName)
 
   failOnStderr: true
@@ -87,7 +87,7 @@ steps:
     clientid: $(clientid)
     clientsecret: $(clientsecret)
     tenantid: $(tenantid)
-    helmChartVersion: $(Build.BuildNumber)
+    helmChartVersion: $(helmChartVersion)
   failOnStderr: true
   name: helmPush
   condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/master'))

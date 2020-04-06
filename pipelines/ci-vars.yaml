@@ -6,6 +6,7 @@ parameters:
   clientsecret: ''
   tenantid: ''
   acrlogin_username: ''
+  helmChartVersion: ''
 
 variables:
   helmVersion: 3.1.2
@@ -18,3 +19,4 @@ variables:
   clientid: ${{ parameters.clientid }}
   acrlogin_username: ${{ parameters.acrlogin_username }}
   registryName: ${{ parameters.registryName }}
+  helmChartVersion: ${{ parameters.helmChartVersion }}
