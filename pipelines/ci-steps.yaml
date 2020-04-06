@@ -38,7 +38,7 @@ steps:
   condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/master'))
   displayName: 'docker login'
 - bash: |
-    docker push $registryServerName/$imageName:$imageTag
+    docker push $registryServerName/delphi/$imageName:$imageTag
   env:
     registryServerName: $(registryServerName)
     imageName: $(imageName)
