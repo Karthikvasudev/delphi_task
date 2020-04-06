@@ -78,7 +78,7 @@ steps:
         -p $acrlogin_password \
         $chartPackage
     echo $(build.artifactStagingDirectory)
-    echo $(jq -n --arg version "$helmChartVersion" '{helmChartVersion: $(Build.BuildNumber)}') > $(build.artifactStagingDirectory)/variables.json
+    echo $(jq -n --arg version "$helmChartVersion" '{helmChartVersion: $helmChartVersion}') > $(build.artifactStagingDirectory)/variables.json
     cat $(build.artifactStagingDirectory)/variables.json
   env:
     registryName: $(registryName)
