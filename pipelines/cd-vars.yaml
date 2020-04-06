@@ -1,8 +1,14 @@
 parameters:
   projectName: ''
   registryName: ''
+  acrlogin_username: ''
+  aks: ''
+  rg: ''
 
 variables:
   helmVersion: 3.1.2
   registryServerName: '$(registryName).azurecr.io'
   projectName: ${{ parameters.projectName }}
+  acrlogin_username: ${{ parameters.acrlogin_username }}
+  aks: ${{ parameters.aks }}
+  rg: ${{ parameters.rg }}
