@@ -21,7 +21,7 @@ steps:
     
     helmChartVersion=$(jq .helmChartVersion $(pipeline.workspace)/ci-pipeline/build-artifact/variables.json -r)
     echo $helmChartVersion
-    
+    helm repo update
     helm list
     helm upgrade \
         --namespace $k8sNamespace \
