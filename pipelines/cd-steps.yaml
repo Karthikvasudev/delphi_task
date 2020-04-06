@@ -34,7 +34,7 @@ steps:
     clientid: $(clientid)
     clientsecret: $(clientsecret)
     registryName: $(registryName)
-    tenantid: $(t enantid)
+    tenantid: $(tenantid)
     aks: $(aks)
     rg: $(rg)
     registryServerName: $(registryServerName)
