@@ -4,7 +4,7 @@ pr: none
 variables:
 - template: cd-vars.yaml
   parameters:
-      projectName: delphi_task
+      projectName: delphi
       registryName: delphiacr
       aks: delphi_k8s
       rg: DelphiRG
