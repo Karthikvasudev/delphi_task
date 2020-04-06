@@ -7,39 +7,40 @@ steps:
 #   failOnStderr: true
 #   displayName: 'maven package - if needed we can push this artifact to artifactory such as JFROG'
 
-# - bash: |
-#     echo $registryServerName
-#     docker build -t $registryServerName/delphi/$imageName:$iamageTag .
-#   env:
-#     registryServerName: $(registryServerName)
-#     imageName: $(imageName)
-#     iamageTag: $(iamageTag)
+- bash: |
+    echo $registryServerName
+    docker build -t $registryServerName/delphi/$imageName:$iamageTag .
+  env:
+    registryServerName: $(registryServerName)
+    imageName: $(imageName)
+    iamageTag: $(iamageTag)
 
-#   failOnStderr: true
-#   displayName: 'docker build'
+  failOnStderr: true
+  displayName: 'docker build'
 
-# - bash: |
-#     az login \
-#         --service-principal \
-#         -u $clientid \
-#         -p $clientsecret \
-#         --tenant $tenantid
-#     acrlogin_password=$(az keyvault secret show -n Password --vault-name delphivault | jq -r '.value')
-#     echo $acrlogin_password | docker login \
-#         $registryServerName \
-#         -u $acrlogin_username \
-#         --password-stdin
-#   env:
-#     acrlogin_username: $(acrlogin_username)
-#     registryServerName: $(registryServerName)
-#     tenantid: $(tenantid)
-#     clientid: $(clientid)
-#     clientsecret: $(clientsecret)
-#   condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/master'))
-#   displayName: 'docker login'
+- bash: |
+    az login \
+        --service-principal \
+        -u $clientid \
+        -p $clientsecret \
+        --tenant $tenantid
+    acrlogin_password=$(az keyvault secret show -n Password --vault-name delphivault | jq -r '.value')
+    echo $acrlogin_password | docker login \
+        $registryServerName \
+        -u $acrlogin_username \
+        --password-stdin
+  env:
+    acrlogin_username: $(acrlogin_username)
+    registryServerName: $(registryServerName)
+    tenantid: $(tenantid)
+    clientid: $(clientid)
+    clientsecret: $(clientsecret)
+  condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/master'))
+  displayName: 'docker login'
 
 - bash: |
     echo $registryServerName
+    docker push $registryServerName/delphi/$imageName:$iamageTag
   env:
     registryServerName: $(registryServerName)
     imageName: $(imageName)
