@@ -1,7 +1,6 @@
 #Using Azure Key_vault store for ACR secrets 
 steps:
 - bash: |
-    cd $(projectName)
     docker build \
         -t $(registryServerName)/$(imageName):$(imageTag) \
         .
@@ -18,7 +17,7 @@ steps:
   displayName: 'az login to retrieve secrets from Key_vault'
 
 - bash: |
-    cd $(projectName)/spring-boot-web
+    cd spring-boot-web
     mvn clean package
   failOnStderr: true
   displayName: 'maven package - if needed we can push this artifact to artifactory such as JFROG'

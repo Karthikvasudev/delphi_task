@@ -1,16 +1,3 @@
-secrets:
-  - id: username
-    keyvault: https://delphivault.vault.azure.net/secrets/UserName
-  - id: password
-    keyvault: https://delphivault.vault.azure.net/secrets/Password
-  - id: clientid
-    keyvault: https://delphivault.vault.azure.net/secrets/client_id
-  - id: clientsecret
-    keyvault: https://delphivault.vault.azure.net/secrets/client_secret
-  - id: tenantid
-    keyvault: https://delphivault.vault.azure.net/secrets/tenant_id
-
-
 steps:
 - checkout: none
 - task: HelmInstaller@1
