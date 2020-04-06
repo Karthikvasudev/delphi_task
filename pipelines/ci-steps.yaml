@@ -1,5 +1,12 @@
 #Using Azure Key_vault store for ACR secrets 
 steps:
+
+- bash: |
+    cd spring-boot-web
+    mvn clean package
+  failOnStderr: true
+  displayName: 'maven package - if needed we can push this artifact to artifactory such as JFROG'
+
 - bash: |
     echo $registryServerName
     docker build -t $registryServerName/$imageName:$iamageTag .
@@ -11,28 +18,12 @@ steps:
   failOnStderr: true
   displayName: 'docker build'
 
-
 - bash: |
     az login \
         --service-principal \
         -u $clientid \
         -p $clientsecret \
         --tenant $tenantid
-  env:
-    tenantid: $(tenantid)
-    clientid: $(clientid)
-    clientsecret: $(clientsecret)
-
-  failOnStderr: true
-  displayName: 'az login to retrieve secrets from Key_vault'
-
-- bash: |
-    cd spring-boot-web
-    mvn clean package
-  failOnStderr: true
-  displayName: 'maven package - if needed we can push this artifact to artifactory such as JFROG'
-
-- bash: |
     acrlogin_password=$(az keyvault secret show -n Password --vault-name delphivault | jq -r '.value')
     echo $acrlogin_password | docker login \
         $registryServerName \
@@ -41,6 +32,9 @@ steps:
   env:
     acrlogin_username: $(acrlogin_username)
     registryServerName: $(registryServerName)
+    tenantid: $(tenantid)
+    clientid: $(clientid)
+    clientsecret: $(clientsecret)
   condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/master'))
   displayName: 'docker login'
 - bash: |
