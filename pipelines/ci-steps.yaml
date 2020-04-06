@@ -1,11 +1,11 @@
 #Using Azure Key_vault store for ACR secrets 
 steps:
 
-- bash: |
-    cd spring-boot-web
-    mvn clean package
-  failOnStderr: true
-  displayName: 'maven package - if needed we can push this artifact to artifactory such as JFROG'
+# - bash: |
+#     cd spring-boot-web
+#     mvn clean package
+#   failOnStderr: true
+#   displayName: 'maven package - if needed we can push this artifact to artifactory such as JFROG'
 
 - bash: |
     echo $registryServerName
