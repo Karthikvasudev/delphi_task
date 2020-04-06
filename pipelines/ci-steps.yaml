@@ -6,7 +6,7 @@ steps:
 - bash: |
     echo $registryServerName
     docker build \
-        -t $registryServerName/$imageName:$MyRunNumber \
+        -t $registryServerName/$imageName:$(Build.BuildNumber) \
         .
   failOnStderr: true
   displayName: 'docker build'
