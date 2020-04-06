@@ -1,10 +1,14 @@
 #Using Azure Key_vault store for ACR secrets 
 steps:
 - bash: |
-    echo ${registryServerName}
+    echo $registryServerName
     docker build -t $registryServerName/$imageName:$(Build.BuildNumber) .
+  env:
+    registryServerName: $(registryServerName)
+
   failOnStderr: true
   displayName: 'docker build'
+
 
 - bash: |
     az login \
