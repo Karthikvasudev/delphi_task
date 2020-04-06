@@ -1,14 +1,12 @@
-#Retrieving K8s cluster FQDN from key_vault
-secrets:
-  - id: FQDN
-    keyvault: https://delphivault.vault.azure.net/secrets/k8sfqdn
 replicaCount: 1
 image:
-  useImagePullSecrets: false
+  useImagePullSecrets: true
   pullPolicy: Always
+  repository: delphiacr.azurecr.io/delphi/delphi_springboot
+  AppVersion: $(Build.BuildNumber)
 service:
   internalPort: 8080
   externalPort: 8080
 ingress:
   enabled: true
-  basedomain: '{{.Secrets.FQDN}}'
+  basedomain: delphik8s-ddc653a3.hcp.westus.azmk8s.io
