@@ -1,6 +1,14 @@
 #Using Azure Key_vault store for ACR secrets 
 steps:
 - bash: |
+    cd $(projectName)
+    docker build \
+        -t $(registryServerName)/$(imageName):$(imageTag) \
+        .
+  failOnStderr: true
+  displayName: 'docker build'
+
+- bash: |
     az login \
         --service-principal \
         -u $(clientid) \
@@ -8,15 +16,6 @@ steps:
         --tenant $(tenantid)
   failOnStderr: true
   displayName: 'az login to retrieve secrets from Key_vault'
-
-steps:
-- bash: |
-    cd $(projectName)
-    docker build \
-        -t $(registryServerName)/$(imageName):$(imageTag) \
-        .
-  failOnStderr: true
-  displayName: 'docker build'
 
 - bash: |
     cd $(projectName)/spring-boot-web
