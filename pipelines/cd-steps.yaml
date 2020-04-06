@@ -9,27 +9,41 @@ steps:
 - bash: |
    az login \
         --service-principal \
-        -u $(clientid) \
-        -p $(clientsecret) \
-        --tenant $(tenantid)
+        -u $clientid \
+        -p $clientsecret \
+        --tenant $tenantid
     az aks get-credentials \
-        -n $(aks) \
-        -g $(rg)
+        -n $aks \
+        -g $rg
     acrlogin_password=$(az keyvault secret show -n Password --vault-name delphivault | jq -r '.value')
     helm repo add \
-        $(registryName) \
-        https://$(registryServerName)/helm/v1/repo \
-        --username $(acrlogin_username) \
-        --password $(acrlogin_password)
+        $registryName \
+        https://$registryServerName/helm/v1/repo \
+        --username $acrlogin_username \
+        --password $acrlogin_password
     helmChartVersion=$(jq .helmChartVersion $(pipeline.workspace)/ci-pipeline/build-artifact/variables.json -r)
     helm upgrade \
-        --namespace $(k8sNamespace) \
+        --namespace $k8sNamespace \
         --install \
         --wait \
         --version $helmChartVersion \
-        --set image.repository=$(registryServerName)/$(projectName) \
+        --set image.repository=$registryServerName/$projectName \
         --set ingress.enabled=false \
-        $(projectName) \
-        $(registryName)/$(projectName)
+        $projectName \
+        $registryName/$projectName
+  env:
+    clientid: $(clientid)
+    clientsecret: $(clientsecret)
+    tenantid: $(tenantid)
+    aks: $(aks)
+    rg: $(rg)
+    registryServerName: $(registryServerName)
+    acrlogin_username: $(acrlogin_username)
+    k8sNamespace: $(k8sNamespace)
+    projectName: $(projectName)
+
+
+
+
   failOnStderr: true
   displayName: 'deploy helm chart'
