@@ -22,6 +22,7 @@ variables:
       clientsecret: 13003584-1682-4634-bab4-f5d68a7f013e
       tenantid: 93bb4c86-1f5b-48e6-b8c1-b46d17b15c0a
       acrlogin_username: delphiacr
+      registryName: delphiacr
 
 steps:
 - template: ci-steps.yaml

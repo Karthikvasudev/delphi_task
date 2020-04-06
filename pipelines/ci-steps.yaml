@@ -72,13 +72,13 @@ steps:
     acrlogin_password=$(az keyvault secret show -n Password --vault-name delphivault | jq -r '.value')
     chartPackage=$(ls /home/vsts/work/1/s/delphi-*.tgz)
     az acr helm push \
-        -n $registryServerName \
+        -n $registryName \
         -u $acrlogin_username \
         -p $acrlogin_password \
         $chartPackage
     echo $(jq -n --arg version "$(helmChartVersion)" '{helmChartVersion: $version}') > $(build.artifactStagingDirectory)/variables.json
   env:
-    registryServerName: $(registryServerName)
+    registryName: $(registryName)
     projectName: $(projectName)
     acrlogin_username: $(acrlogin_username)
     clientid: $(clientid)
