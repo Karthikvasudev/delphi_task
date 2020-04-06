@@ -1,6 +1,7 @@
 #Using Azure Key_vault store for ACR secrets 
 steps:
 - bash: |
+    echo $(registryServerName)
     docker build \
         -t $(registryServerName)/$(imageName):$(imageTag) \
         .
