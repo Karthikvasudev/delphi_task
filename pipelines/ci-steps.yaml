@@ -9,7 +9,7 @@ steps:
 
 - bash: |
     echo $registryServerName
-    docker build -t $registryServerName/$imageName:$iamageTag .
+    docker build -t $registryServerName/delphi/$imageName:$iamageTag .
   env:
     registryServerName: $(registryServerName)
     imageName: $(imageName)
