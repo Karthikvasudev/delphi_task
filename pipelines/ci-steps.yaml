@@ -1,7 +1,4 @@
 #Using Azure Key_vault store for ACR secrets 
-variables: 
-  MyRunNumber: '1.0.0-CI-$(Build.BuildNumber)'
-
 steps:
 - bash: |
     echo $registryServerName
