@@ -6,14 +6,13 @@ parameters:
   clientsecret: ''
   tenantid: ''
   acrlogin_username: ''
-  registryName: ''
 
 variables:
   helmVersion: 3.1.2
-  registryServerName: '$(registryName).azurecr.io'
+  registryServerName: '${{ parameters.registryName }}.azurecr.io'
   projectName: ${{ parameters.projectName }}
   imageName: ${{ parameters.imageName }}
-  iamageTag: $(BuildID)
+  iamageTag: $(Build.BuildNumber)
   tenantid: ${{ parameters.tenantid }}
   clientsecret: ${{ parameters.clientsecret }}
   clientid: ${{ parameters.clientid }}

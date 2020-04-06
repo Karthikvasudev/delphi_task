@@ -2,9 +2,11 @@
 steps:
 - bash: |
     echo $registryServerName
-    docker build -t $registryServerName/$imageName:$(Build.BuildNumber) .
+    docker build -t $registryServerName/$imageName:$iamageTag .
   env:
     registryServerName: $(registryServerName)
+    imageName: $(imageName)
+    iamageTag: $(iamageTag)
 
   failOnStderr: true
   displayName: 'docker build'
@@ -16,6 +18,11 @@ steps:
         -u $clientid \
         -p $clientsecret \
         --tenant $tenantid
+  env:
+    tenantid: $(tenantid)
+    clientid: $(clientid)
+    clientsecret: $(clientsecret)
+
   failOnStderr: true
   displayName: 'az login to retrieve secrets from Key_vault'
 
@@ -27,38 +34,57 @@ steps:
 
 - bash: |
     acrlogin_password=$(az keyvault secret show -n Password --vault-name delphivault | jq -r '.value')
-    echo $(acrlogin_password) | docker login \
-        $(registryServerName) \
-        -u $(acrlogin_username) \
+    echo $acrlogin_password | docker login \
+        $registryServerName \
+        -u $acrlogin_username \
         --password-stdin
+  env:
+    acrlogin_username: $(acrlogin_username)
+    registryServerName: $(registryServerName)
   condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/master'))
   displayName: 'docker login'
 - bash: |
     docker push $registryServerName/$imageName:$imageTag
+  env:
+    registryServerName: $(registryServerName)
+    imageName: $(imageName)
+    imageTag: $(imageTag)
   failOnStderr: true
   condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/master'))
   displayName: 'docker push'
+
 - task: HelmInstaller@1
   displayName: 'install helm'
   inputs:
     helmVersionToInstall: $(helmVersion)
 - bash: |
-    cd $(projectName)
     helm package \
-        --version $(helmChartVersion) \
-        --app-version $(imageTag) \
-        charts/$(projectName)
+        --version $helmChartVersion \
+        --app-version $imageTag \
+        charts/$projectName
+  env:
+    helmChartVersion: $(helmChartVersion)
+    imageTag: $(imageTag)
+    projectName: $(projectName)
+
   failOnStderr: true
   displayName: 'helm package'
 - bash: |
-    cd $(projectName)
-    chartPackage=$(ls $(projectName)-*.tgz)
+    acrlogin_password=$(az keyvault secret show -n Password --vault-name delphivault | jq -r '.value')
+    chartPackage=$(ls $projectName-*.tgz)
     az acr helm push \
         -n $registryName \
         -u $acrlogin_username \
         -p $acrlogin_password \
         $chartPackage
     echo $(jq -n --arg version "$(helmChartVersion)" '{helmChartVersion: $version}') > $(build.artifactStagingDirectory)/variables.json
+  env:
+    registryName: $(registryName)
+    projectName: $(projectName)
+    acrlogin_username: $(acrlogin_username)
+
+
+
   failOnStderr: true
   name: helmPush
   condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/master'))
