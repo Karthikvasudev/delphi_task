@@ -2,7 +2,7 @@ trigger: none
 pr: none
 
 variables:
-- template: pipelines/cd-vars.yml
+- template: cd-vars.yml
   parameters:
       projectName: delphi_task
       registryName: delphiacr
@@ -34,4 +34,4 @@ stages:
       runOnce:
         deploy:
           steps:
-          - template: pipelines/cd-steps.yml
+          - template: cd-steps.yml
