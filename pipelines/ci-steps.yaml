@@ -76,7 +76,7 @@ steps:
         -u $acrlogin_username \
         -p $acrlogin_password \
         $chartPackage
-    echo $(jq -n --arg version "$(helmChartVersion)" '{helmChartVersion: $version}') > $(build.artifactStagingDirectory)/variables.json
+    echo $(jq -n --arg version "$helmChartVersion" '{helmChartVersion: $version}') > $(build.artifactStagingDirectory)/variables.json
   env:
     registryName: $(registryName)
     projectName: $(projectName)
@@ -84,6 +84,7 @@ steps:
     clientid: $(clientid)
     clientsecret: $(clientsecret)
     tenantid: $(tenantid)
+    helmChartVersion: $(Build.BuildNumber)
   failOnStderr: true
   name: helmPush
   condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/master'))
