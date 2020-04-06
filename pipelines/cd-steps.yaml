@@ -19,7 +19,7 @@ steps:
     
     helm repo add $registryName https://$registryServerName/helm/v1/repo --username $acrlogin_username --password $acrlogin_password
     
-    helmChartVersion=$(jq .helmChartVersion $(pipeline.workspace)/ci-pipeline/build-artifact/variables.json -r)
+    helmChartVersion=$(jq .helmChartVersion $(pipeline.workspace)/a/build-artifact/variables.json -r)
     
     helm upgrade \
         --namespace $k8sNamespace \

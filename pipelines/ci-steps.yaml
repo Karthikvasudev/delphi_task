@@ -1,11 +1,11 @@
 #Using Azure Key_vault store for ACR secrets 
 steps:
 
-- bash: |
-    cd spring-boot-web
-    mvn clean package
-  failOnStderr: true
-  displayName: 'maven package - if needed we can push this artifact to artifactory such as JFROG'
+# - bash: |
+#     cd spring-boot-web
+#     mvn clean package
+#   failOnStderr: true
+#   displayName: 'maven package - if needed we can push this artifact to artifactory such as JFROG'
 
 - bash: |
     echo $registryServerName
@@ -77,7 +77,9 @@ steps:
         -u $acrlogin_username \
         -p $acrlogin_password \
         $chartPackage
-    echo $(jq -n --arg version "$helmChartVersion" '{helmChartVersion: $version}') > $(build.artifactStagingDirectory)/variables.json
+    echo $(build.artifactStagingDirectory)
+    echo $(jq -n --arg version "$helmChartVersion" '{helmChartVersion: $(Build.BuildNumber)}') > $(build.artifactStagingDirectory)/variables.json
+    cat $(build.artifactStagingDirectory)/variables.json
   env:
     registryName: $(registryName)
     projectName: $(projectName)
