@@ -1,10 +1,4 @@
-version: v1.1.0
 #Using Azure Key_vault store for ACR secrets 
-secrets:
-  - id: username
-    keyvault: https://delphivault.vault.azure.net/secrets/UserName
-  - id: password
-    keyvault: https://delphivault.vault.azure.net/secrets/Password
 
 steps:
 - bash: |
@@ -18,8 +12,6 @@ steps:
 - bash: |
     cd $(projectName)/spring-boot-web
     mvn clean package
-    
-        .
   failOnStderr: true
   displayName: 'maven package - if needed we can push this artifact to artifactory such as JFROG'
 
@@ -28,6 +20,11 @@ steps:
         $(registryServerName) \
         -u '{{.Secrets.username}}' \
         --password-stdin
+  secrets:
+  - id: username
+    keyvault: https://delphivault.vault.azure.net/secrets/UserName
+  - id: password
+    keyvault: https://delphivault.vault.azure.net/secrets/Password
   condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/master'))
   displayName: 'docker login'
 - bash: |
