@@ -54,11 +54,10 @@ steps:
     helmVersionToInstall: $(helmVersion)
 - bash: |
     helm package \
-        --version $helmChartVersion \
+        --version $(Build.BuildNumber) \
         --app-version $imageTag \
         charts/$projectName
   env:
-    helmChartVersion: $(helmChartVersion)
     imageTag: $(imageTag)
     projectName: $(projectName)
 
@@ -73,13 +72,13 @@ steps:
     acrlogin_password=$(az keyvault secret show -n Password --vault-name delphivault | jq -r '.value')
     chartPackage=$(ls /home/vsts/work/1/s/delphi-*.tgz)
     az acr helm push \
-        -n $registryName \
+        -n $registryServerName \
         -u $acrlogin_username \
         -p $acrlogin_password \
         $chartPackage
     echo $(jq -n --arg version "$(helmChartVersion)" '{helmChartVersion: $version}') > $(build.artifactStagingDirectory)/variables.json
   env:
-    registryName: $(registryName)
+    registryServerName: $(registryServerName)
     projectName: $(projectName)
     acrlogin_username: $(acrlogin_username)
     clientid: $(clientid)
