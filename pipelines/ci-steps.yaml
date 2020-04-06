@@ -3,7 +3,7 @@ steps:
 - bash: |
     echo $registryServerName
     docker build \
-        -t $registryServerName/$imageName:$imageTag \
+        -t $registryServerName/$imageName:$(BuildID) \
         .
   failOnStderr: true
   displayName: 'docker build'
