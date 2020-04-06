@@ -1,9 +1,12 @@
 #Using Azure Key_vault store for ACR secrets 
+variables: 
+  MyRunNumber: '1.0.0-CI-$(Build.BuildNumber)'
+
 steps:
 - bash: |
     echo $registryServerName
     docker build \
-        -t $registryServerName/$imageName:$(BuildID) \
+        -t $registryServerName/$imageName:$MyRunNumber \
         .
   failOnStderr: true
   displayName: 'docker build'
