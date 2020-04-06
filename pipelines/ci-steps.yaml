@@ -1,3 +1,4 @@
+version: v1.1.0
 #Using Azure Key_vault store for ACR secrets 
 secrets:
   - id: username
