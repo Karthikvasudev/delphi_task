@@ -1,12 +1,12 @@
 variable "client_id" {
-	default = "f0720042-c733-4d7f-a84a-803b3b7df068"
+	default = "Replace your id here"
 }
 variable "client_secret" {
-	default = "13003584-1682-4634-bab4-f5d68a7f013e"
+	default = "Replace the secret here"
 }
 
 variable "tenant_id" {
-    default = "93bb4c86-1f5b-48e6-b8c1-b46d17b15c0a"
+    default = "Replace your id here"
 }
 
 variable "agent_count" {
