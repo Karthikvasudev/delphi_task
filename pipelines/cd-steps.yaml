@@ -33,7 +33,8 @@ steps:
   env:
     clientid: $(clientid)
     clientsecret: $(clientsecret)
-    tenantid: $(tenantid)
+    registryName: $(registryName)
+    tenantid: $(t enantid)
     aks: $(aks)
     rg: $(rg)
     registryServerName: $(registryServerName)

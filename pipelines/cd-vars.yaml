@@ -20,3 +20,4 @@ variables:
   clientsecret: ${{ parameters.clientsecret }}
   tenantid: ${{ parameters.tenantid }}
   k8sNamespace: ${{ parameters.k8sNamespace }}
+  registryName: ${{ parameters.registryName }}
