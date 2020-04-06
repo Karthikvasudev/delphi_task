@@ -1,9 +1,9 @@
-trigger:
 - task: AzureKeyVault@1
   inputs:
     azureSubscription: 'Azure subscription (e6c064af-4de4-4ebc-a459-e193bfe6e9bf)'
     KeyVaultName: 'delphivault'
     SecretsFilter: '*'
+trigger:
   batch: true
   branches:
     include: 
