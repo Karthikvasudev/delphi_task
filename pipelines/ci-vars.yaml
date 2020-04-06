@@ -2,6 +2,10 @@ parameters:
   projectName: ''
   registryName: ''
   imageName: ''
+  clientid: ''
+  clientsecret: ''
+  tenantid: ''
+  acrlogin_username: ''
 
 variables:
   helmVersion: 3.1.2
@@ -9,3 +13,7 @@ variables:
   projectName: ${{ parameters.projectName }}
   imageName: ${{ parameters.imageName }}
   iamageTag: $(BuildID)
+  tenantid: ${{ parameters.tenantid }}
+  clientsecret: ${{ parameters.clientsecret }}
+  clientid: ${{ parameters.clientid }}
+  acrlogin_username: ${{ parameters.acrlogin_username }}

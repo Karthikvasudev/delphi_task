@@ -22,17 +22,18 @@ steps:
 - bash: |
    az login \
         --service-principal \
-        -u '{{.Secrets.clientid}}' \
-        -p '{{.Secrets.clientsecret}}' \
-        --tenant '{{.Secrets.tenantid}}'
+        -u $(clientid) \
+        -p $(clientsecret) \
+        --tenant $(tenantid)
     az aks get-credentials \
         -n $(aks) \
         -g $(rg)
+    acrlogin_password=$(az keyvault secret show -n Password --vault-name delphivault | jq -r '.value')
     helm repo add \
         $(registryName) \
         https://$(registryServerName)/helm/v1/repo \
-        --username '{{.Secrets.username}}' \
-        --password '{{.Secrets.password}}'
+        --username $(acrlogin_username) \
+        --password $(acrlogin_password)
     helmChartVersion=$(jq .helmChartVersion $(pipeline.workspace)/ci-pipeline/build-artifact/variables.json -r)
     helm upgrade \
         --namespace $(k8sNamespace) \

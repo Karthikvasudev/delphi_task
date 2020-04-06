@@ -4,8 +4,7 @@ trigger:
     include: 
     - '*'
   paths:
-    include: 
-    - delphi_task/
+    include:
     - ci-steps.yaml
     
 pr: none
@@ -19,6 +18,10 @@ variables:
       projectName: delphi_task
       registryName: delphiacr
       imageName: delphi_springboot
+      clientid: f0720042-c733-4d7f-a84a-803b3b7df068
+      clientsecret: 13003584-1682-4634-bab4-f5d68a7f013e
+      tenantid: 93bb4c86-1f5b-48e6-b8c1-b46d17b15c0a
+      acrlogin_username: delphiacr
 
 steps:
 - template: ci-steps.yaml

@@ -1,4 +1,13 @@
 #Using Azure Key_vault store for ACR secrets 
+steps:
+- bash: |
+    az login \
+        --service-principal \
+        -u $(clientid) \
+        -p $(clientsecret) \
+        --tenant $(tenantid)
+  failOnStderr: true
+  displayName: 'az login to retrieve secrets from Key_vault'
 
 steps:
 - bash: |
@@ -16,15 +25,11 @@ steps:
   displayName: 'maven package - if needed we can push this artifact to artifactory such as JFROG'
 
 - bash: |
-    echo '{{.Secrets.password}}' | docker login \
+    acrlogin_password=$(az keyvault secret show -n Password --vault-name delphivault | jq -r '.value')
+    echo $(acrlogin_password) | docker login \
         $(registryServerName) \
-        -u '{{.Secrets.username}}' \
+        -u $(acrlogin_username) \
         --password-stdin
-  secrets:
-  - id: username
-    keyvault: https://delphivault.vault.azure.net/secrets/UserName
-  - id: password
-    keyvault: https://delphivault.vault.azure.net/secrets/Password
   condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/master'))
   displayName: 'docker login'
 - bash: |
@@ -49,8 +54,8 @@ steps:
     chartPackage=$(ls $(projectName)-*.tgz)
     az acr helm push \
         -n $(registryName) \
-        -u '{{.Secrets.username}}' \
-        -p '{{.Secrets.password}}' \
+        -u $(acrlogin_username) \
+        -p $(acrlogin_password) \
         $chartPackage
     echo $(jq -n --arg version "$(helmChartVersion)" '{helmChartVersion: $version}') > $(build.artifactStagingDirectory)/variables.json
   failOnStderr: true
