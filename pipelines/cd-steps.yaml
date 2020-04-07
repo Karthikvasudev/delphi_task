@@ -23,6 +23,7 @@ steps:
     echo $helmChartVersion
     helm repo update
     helm search repo delphiacr
+    kubectl delete ns --namespace=delphik8s --force
     kubectl create namespace $k8sNamespace
     helm upgrade \
         --namespace $k8sNamespace \
