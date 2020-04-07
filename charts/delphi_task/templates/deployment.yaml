@@ -23,10 +23,10 @@ spec:
 {{ end }}
       containers:
       - name: {{ .Chart.Name }}
-        image: "{{ .Values.image.repository }}:{{ .Values.image.AppVersion }}"
+        image: "{{ .Values.image.repository }}:{{ .Chart.AppVersion }}"
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         resources:
 {{ toYaml .Values.resources | indent 12 }}
         env:
-          - name: DELPHI_TASK
+          - name: delphi
             value: Development

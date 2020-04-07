@@ -3,7 +3,6 @@ image:
   useImagePullSecrets: true
   pullPolicy: Always
   repository: delphiacr.azurecr.io/delphi/delphi_springboot
-  AppVersion: $(Build.BuildNumber)
 service:
   internalPort: 8080
   externalPort: 8080

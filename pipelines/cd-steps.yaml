@@ -24,7 +24,6 @@ steps:
     helm repo update
     helm search repo delphiacr
     kubectl create namespace $k8sNamespace
-    helm list --all-namespaces
     helm upgrade \
         --namespace $k8sNamespace \
         --install \
@@ -45,9 +44,5 @@ steps:
     acrlogin_username: $(acrlogin_username)
     k8sNamespace: $(k8sNamespace)
     projectName: $(projectName)
-
-
-
-
   failOnStderr: true
   displayName: 'deploy helm chart'
