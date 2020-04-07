@@ -23,9 +23,10 @@ steps:
     echo $helmChartVersion
     helm repo update
     helm search repo delphiacr
+    kubectl create namespace $k8sNamespace
     helm list --all-namespaces
     helm upgrade \
-        --create-namespace $k8sNamespace \
+        --namespace $k8sNamespace \
         --install \
         --wait \
         --version $helmChartVersion \
