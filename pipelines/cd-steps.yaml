@@ -45,5 +45,5 @@ steps:
     acrlogin_username: $(acrlogin_username)
     k8sNamespace: $(k8sNamespace)
     projectName: $(projectName)
-  failOnStderr: true
+  failOnStderr: false
   displayName: 'deploy helm chart'
