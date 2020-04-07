@@ -24,7 +24,7 @@ steps:
     helm repo update
     helm search repo delphiacr --devel
     helm list -all
-    helm delete --purge delphi_k8s
+    helm delete delphi_k8s
     helm upgrade \
         --namespace $k8sNamespace \
         --install \
