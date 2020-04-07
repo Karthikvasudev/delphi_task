@@ -12,7 +12,7 @@ variables:
       clientid: f0720042-c733-4d7f-a84a-803b3b7df068
       clientsecret: 13003584-1682-4634-bab4-f5d68a7f013e
       tenantid: 93bb4c86-1f5b-48e6-b8c1-b46d17b15c0a
-      k8sNamespace: delphi_k8s
+      k8sNamespace: delphik8s
 
 resources: 
   pipelines:
@@ -30,7 +30,7 @@ stages:
   jobs:
   - deployment: development
     variables:
-      k8sNamespace: 'delphi_k8s'
+      k8sNamespace: 'delphik8s'
     displayName: deploy helm chart into AKS
     pool:
       vmImage: 'ubuntu-16.04'
