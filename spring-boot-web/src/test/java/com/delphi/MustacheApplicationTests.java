@@ -32,7 +32,7 @@ public class MustacheApplicationTests {
 		
 		ResponseEntity<String> entity = this.restTemplate.getForEntity("/", String.class);
 		assertThat(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
-		assertThat(entity.getBody()).contains("Hello World!!");
+		assertThat(entity.getBody()).contains("Happy Helming...!!");
 		
 	}
 
