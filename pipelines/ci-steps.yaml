@@ -73,7 +73,7 @@ steps:
          --tenant $tenantid
     acrlogin_password=$(az keyvault secret show -n Password --vault-name delphivault | jq -r '.value')
     chartPackage=$(ls /home/vsts/work/1/s/delphi-*.tgz)
-    az acr helm push \
+    az acr helm push --force \
         -n $registryName \
         -u $acrlogin_username \
         -p $acrlogin_password \
