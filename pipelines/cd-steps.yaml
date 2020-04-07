@@ -25,7 +25,7 @@ steps:
     helm repo update
     helm search repo delphiacr
     helm upgrade \
-        --namespace $k8sNamespace \
+        --namespace=$k8sNamespace \
         --install \
         --wait \
         --version $helmChartVersion \
