@@ -22,9 +22,8 @@ steps:
     helmChartVersion=$(jq .helmChartVersion $(pipeline.workspace)/ci-pipeline/build-artifact/variables.json -r)
     echo $helmChartVersion
     helm repo update
-    helm search repo delphiacr --devel
-    helm list -all
-    helm delete delphi_k8s
+    helm search repo delphiacr
+    helm list --all-namespaces
     helm upgrade \
         --namespace $k8sNamespace \
         --install \
