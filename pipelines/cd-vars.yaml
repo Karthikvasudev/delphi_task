@@ -10,7 +10,7 @@ parameters:
   k8sNamespace: ''
 
 variables:
-  helmVersion: 3.2.0
+  helmVersion: 3.1.2
   registryServerName: '$(registryName).azurecr.io'
   projectName: ${{ parameters.projectName }}
   acrlogin_username: ${{ parameters.acrlogin_username }}
