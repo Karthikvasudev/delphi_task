@@ -12,6 +12,7 @@ steps:
         -u $clientid \
         -p $clientsecret \
         --tenant $tenantid
+    az aks update -n $aks -g $rg --attach-acr delphiacr
     az aks get-credentials \
         -n $aks \
         -g $rg
@@ -30,7 +31,7 @@ steps:
         --install \
         --wait \
         --version $helmChartVersion \
-        --set image.repository=$registryServerName/$projectName \
+        --set image.repository=$registryServerName/$projectName/delphi_springboot \
         --set ingress.enabled=false \
         $projectName \
         $registryName/$projectName

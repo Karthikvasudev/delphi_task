@@ -1,6 +1,6 @@
 replicaCount: 1
 image:
-  useImagePullSecrets: true
+  useImagePullSecrets: false
   pullPolicy: Always
   repository: delphiacr.azurecr.io/delphi/delphi_springboot
 service:
